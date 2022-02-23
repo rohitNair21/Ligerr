@@ -436,4 +436,3 @@ console.log(makemove(test3, 14, 2))
 
 // console.log(statusOfGame(test3))
 // console.log(convertToFen(convertToReadable(fen)))
-
