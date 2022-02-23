@@ -1,0 +1,21 @@
+/* Rectangle 13 */
+
+.rectangle1 {
+    position: absolute;
+    width: 227.82px;
+    height: 19px;
+
+    background: #3498DB;
+    transform: rotate(-51.15deg);
+}
+
+/* bruh */
+
+.rectangle2 {
+    position: absolute;
+    width: 227.82px;
+    height: 19px;
+
+    background: #3498DB;
+    transform: rotate(-130.33deg);
+}
