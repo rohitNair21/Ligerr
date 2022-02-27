@@ -4,9 +4,12 @@ h3 {
     color: red;
 }
 h2 {
-    position: absolute;
-    width: 227.82px;
-    height: 19px;
+    height: 18.999999210993995px;
+    width: 227.81625946045608px;
+    left: -170px;
+    top: -129.0994415283203px;
+    border-radius: 0px;
+    
 
     background: #3498DB;
     transform: rotate(-51.15deg);
@@ -14,11 +17,13 @@ h2 {
 
 /* bruh */
 
-.rectangle4 {
+h3 {
     position: absolute;
     width: 227.82px;
     height: 19px;
+    
 
     background: #3498DB;
     transform: rotate(-130.33deg);
 }
+

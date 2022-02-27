@@ -131,11 +131,16 @@ function convertToReadable(board) {
    // [0, L, L, E, L, 0]
    // [1] Denotes who's turn
    // E - Represents an Empty spot.
+   var turn = board[board.length - 1]
+   board = board.slice(0, board.length - 2)
+   console.log(board)
 
-   var regexStr = board.match(/[a-z]+|[^a-z]+/gi); // [ 'LLTLLTLLTL', '2', 'LL', '1', 'LLL', '1', 'LL', '1', 'L' ]
+   var regexStr = board.slice(0, board.length).match(/[a-z]+|[^a-z]+/gi); // [ 'LLTLLTLLTL', '2', 'LL', '1', 'LLL', '1', 'LL', '1', 'L' ]
    let arrLen = regexStr.length
+   console.log(regexStr)
    var arrayStr = "";
-   for (var i=0; i< arrLen - 1; i++)
+   console.log(turn)
+   for (var i=0; i< arrLen; i++)
    {
       // True if Str
       // False if Int
@@ -157,19 +162,18 @@ function convertToReadable(board) {
       }
 
    }
-   arrayStr += " "
-   arrayStr += regexStr[arrLen-1][1]
+
 
    let arrayStrLen = arrayStr.length
    arrayBoard = [[], [], [], [], [], []]
 
 
-   arrayBoard[0].push("0", "0", arrayStr[0], "0", "0", "0")
+   arrayBoard[0].push("0", arrayStr[0], arrayStr[0], arrayStr[0], arrayStr[0], "0")
    arrayBoard[1].push(arrayStr[1], arrayStr[2], arrayStr[3], arrayStr[4], arrayStr[5], arrayStr[6])
    arrayBoard[2].push(arrayStr[7], arrayStr[8], arrayStr[9], arrayStr[10], arrayStr[11], arrayStr[12])
    arrayBoard[3].push(arrayStr[13], arrayStr[14], arrayStr[15], arrayStr[16], arrayStr[17], arrayStr[18])
    arrayBoard[4].push("0", arrayStr[19], arrayStr[20], arrayStr[21], arrayStr[22], "0")
-   arrayBoard[5].push(parseInt(arrayStr[24]))
+   arrayBoard[5].push(parseInt(turn))
    return arrayBoard
 
 
@@ -198,35 +202,41 @@ function convertToReadable(board) {
 }
 function convertToFen(arrayBoard) {
    // convert arrayBoard to FEN STRING
-
    var board = ""
    var spaceCount = 0;
-   for (var i=0; i<5; i++)
+   
+   for (var i = 0; i<5; i++)
    {
       for (var j=0; j<6; j++)
       {
-         if (arrayBoard[i][j] == "E")
+         if (i == 0 && j > 1)
          {
-            spaceCount++;
          }
-         if (arrayBoard[i][j] != "E" && arrayBoard[i][j] != "0")
+         else
          {
-            if (spaceCount != 0)
+            if (arrayBoard[i][j] == "E")
             {
-               board += spaceCount.toString()
-               board += arrayBoard[i][j]
-               spaceCount = 0;
-            }else {
-               board += arrayBoard[i][j]
+               spaceCount++;
             }
-         }else if (i == 4 && j == 4)
-         {
-            if (spaceCount != 0)
+            if (arrayBoard[i][j] != "E" && arrayBoard[i][j] != "0")
             {
-               board += spaceCount.toString()
-               spaceCount = 0;
-            }else {
-               board += arrayBoard[i][j]
+               if (spaceCount != 0)
+               {
+                  board += spaceCount.toString()
+                  board += arrayBoard[i][j]
+                  spaceCount = 0;
+               }else {
+                  board += arrayBoard[i][j]
+               }
+            }else if (i == 4 && j == 4)
+            {
+               if (spaceCount != 0)
+               {
+                  board += spaceCount.toString()
+                  spaceCount = 0;
+               }else {
+                  board += arrayBoard[i][j]
+               }
             }
          }
          
@@ -419,7 +429,7 @@ var test2 = [["0", "0", "E", "0", "0", "0"],
              ["E", "E", "E", "E", "E", "E"], 
              ["E", "E", "E", "E", "E", "E"], 
              ["0", "E", "E", "E", "L", "0"]]
-var fen = "LLTLLTLLTL2LL1LLL1LL1L 1"
+var fen = "L21L 1"
 
 var test3 = [["0", "0", "E", "0", "0", "0"], 
              ["T", "L", "E", "E", "E", "E"], 
@@ -427,9 +437,9 @@ var test3 = [["0", "0", "E", "0", "0", "0"],
              ["E", "E", "E", "E", "E", "E"], 
              ["0", "E", "E", "E", "E", "0"]]
 
-console.log(test3)
+console.log(convertToFen(convertToReadable(fen)))
 
-console.log(makemove(test3, 14, 2))
+
 
 // console.log(convertToFen(test2))
 // console.log(statusOfGame(test2))
